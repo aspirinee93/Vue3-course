@@ -1,6 +1,6 @@
 <template>
 
-  <div>
+  <div v-if="posts.length > 0">
     <h3>Список постов</h3>
     <post-item-vue 
       v-for="post in posts" 
@@ -8,6 +8,9 @@
       :post="post" 
       @remove="$emit('remove', post)"
     />
+  </div>
+  <div v-else>
+    <h1 style="color: red">Список пустой</h1>
   </div>
 
 </template>
