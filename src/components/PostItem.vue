@@ -5,7 +5,10 @@
       <div><strong>Опсание: </strong>{{ post.body }}</div>
     </div>
     <div class="post__btns">
-      <my-button-vue>Удалить</my-button-vue>
+      <my-button-vue
+        @click="$emit('remove', post)"
+      >
+        Удалить</my-button-vue>
     </div>
   </div>
 </template>
