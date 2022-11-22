@@ -2,8 +2,8 @@
   <div>
     <form @submit.prevent>
       <h4>Создание поста</h4>
-      <input v-model="post.title" class="input" type="text" placeholder="Название" />
-      <input v-model="post.body" class="input" type="text" placeholder="Описание" />
+      <my-input-vue v-model="post.title" type="text" placeholder="Название" />
+      <my-input-vue v-model="post.body" type="text" placeholder="Описание" />
       <my-button-vue @click="createPost">Создать</my-button-vue>
     </form>
   </div>
@@ -33,5 +33,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
