@@ -1,12 +1,30 @@
 <template>
   <div class="app">
     <h1>Страница с поставми</h1>
-    <my-button-vue style="margin: 15px 0" @click="showDialog">Создать пост</my-button-vue>
+
+    <div class="app__btns">
+      <my-button-vue
+        @click="showDialog"
+        >Создать пост
+      </my-button-vue>
+      <my-select-vue 
+        v-model="selectedSort"
+        :options="sortOptions"
+      />
+    </div>
+
     <my-dialog-vue v-model:show="dialogVisible">
       <post-form-vue @create="createPost" />
     </my-dialog-vue>
-    <post-list-vue v-if="!isPostsLoading" :posts="posts" @remove="removePost" />
+
+    <post-list-vue 
+      v-if="!isPostsLoading" 
+      :posts="posts" 
+      @remove="removePost" 
+      />
+    
     <div v-else>Идет загрузка...</div>
+
   </div>
 </template>
 
@@ -14,7 +32,7 @@
 import PostListVue from "@/components/PostList.vue";
 import PostFormVue from "@/components/PostForm.vue";
 import MyDialogVue from "@/components/UI/MyDialog.vue";
-import MyButton from "./components/UI/MyButton.vue";
+import MyButtonVue from "./components/UI/MyButton.vue";
 import axios from 'axios';
 
 export default {
@@ -22,13 +40,18 @@ export default {
     PostFormVue,
     PostListVue,
     MyDialogVue,
-    MyButton,
+    MyButtonVue,
   },
   data() {
     return {
       posts: [],
       dialogVisible: false,
       isPostsLoading: false,
+      selectedSort: '',
+      sortOptions: [
+        {value: 'title', name: 'По названию'},
+        {value: 'body', name: 'По содержимому'},
+      ]
     };
   },
   methods: {
