@@ -2,6 +2,11 @@
   <div class="app">
     <h1>Страница с поставми</h1>
 
+    <my-input-vue
+      v-model="searchQuery"
+      placeholder="Поиск..."
+    />
+
     <div class="app__btns">
       <my-button-vue
         @click="showDialog"
@@ -19,7 +24,7 @@
 
     <post-list-vue 
       v-if="!isPostsLoading" 
-      :posts="sortedPosts" 
+      :posts="sortedAndSearchedPost" 
       @remove="removePost" 
       />
 
@@ -48,6 +53,7 @@ export default {
       dialogVisible: false,
       isPostsLoading: false,
       selectedSort: '',
+      searchQuery: '',
       sortOptions: [
         {value: 'title', name: 'По названию'},
         {value: 'body', name: 'По содержимому'},
@@ -83,6 +89,9 @@ export default {
   computed: {
     sortedPosts() {
       return [...this.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]))
+    },
+    sortedAndSearchedPost() {
+      return this.sortedPosts.filter(post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
     }
   },
 //   watch: {
