@@ -1,11 +1,14 @@
 <template>
   <div class="post">
     <div>
-      <div>{{ post.id }}</div>
       <div><strong>Название: </strong>{{ post.title }}</div>
       <div><strong>Описание: </strong>{{ post.body }}</div>
     </div>
     <div class="post__btns">
+      <my-button-vue
+        @click="$router.push(`/post/${post.id}`)"
+      >
+        Открыть</my-button-vue>
       <my-button-vue
         @click="$emit('remove', post)"
       >
