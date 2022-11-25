@@ -100,3 +100,15 @@ form {
 .observer {
   height: 30px;
 }
+
+.header {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid teal;
+  padding: 5px;
+  background-color: teal;
+  box-shadow: 2px 2px 4px gray;
+  align-items: center;
+}
+
