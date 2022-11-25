@@ -30,6 +30,18 @@
 
     <div v-else>Идет загрузка...</div>
 
+    <div class="page__wrapper">
+      <div 
+        class="page" 
+        v-for="pageNumber in totalPage" 
+        :key="pageNumber"
+        :class="{'current-page': page === pageNumber}"
+        @click="changePage(pageNumber)"
+        >
+        {{pageNumber}}
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -54,6 +66,9 @@ export default {
       isPostsLoading: false,
       selectedSort: '',
       searchQuery: '',
+      page: 1,
+      limit: 10,
+      totalPage: 0,
       sortOptions: [
         {value: 'title', name: 'По названию'},
         {value: 'body', name: 'По содержимому'},
@@ -74,13 +89,23 @@ export default {
     async fetchPosts() {
       try {
         this.isPostsLoading = true;
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+        const response = await axios.get("https://jsonplaceholder.typicode.com/posts", {
+          params: {
+            _page: this.page,
+            _limit: this.limit
+          }
+        });
+        this.totalPage = Math.ceil(response.headers['x-total-count'] / this.limit)
         this.posts = response.data;
       } catch (e) {
         alert ('Ошибка')
       } finally {
         this.isPostsLoading = false;
       }
+    },
+    changePage(page) {
+      this.page = page
+      this.fetchPosts()
     }
   },
   mounted() {
@@ -94,13 +119,11 @@ export default {
       return this.sortedPosts.filter(post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
     }
   },
-//   watch: {
-//     selectedSort(newValue) {
-//       this.posts.sort( (post1, post2) => {
-//         return post1[newValue]?.localeCompare(post2[newValue])
-//       })
-//     },
-// }
+  watch: {
+    page() {
+      this.fetchPosts()
+    }
+  }
 }
 </script>
 
