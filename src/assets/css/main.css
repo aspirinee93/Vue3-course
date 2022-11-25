@@ -96,3 +96,7 @@ form {
   border: 2px solid teal;
   background: rgb(77, 245, 245);
 }
+
+.observer {
+  height: 30px;
+}
