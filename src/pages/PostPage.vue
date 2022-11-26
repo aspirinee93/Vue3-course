@@ -2,31 +2,19 @@
   <div>
     <h1>Страница с поставми</h1>
 
-    <my-input-vue
-      v-model="searchQuery"
-      placeholder="Поиск..."
-    />
+    <my-input-vue v-model="searchQuery" placeholder="Поиск..." />
 
     <div class="app__btns">
-      <my-button-vue
-        @click="showDialog"
-        >Создать пост
+      <my-button-vue @click="showDialog">Создать пост
       </my-button-vue>
-      <my-select-vue 
-        v-model="selectedSort"
-        :options="sortOptions"
-      />
+      <my-select-vue v-model="selectedSort" :options="sortOptions" />
     </div>
 
     <my-dialog-vue v-model:show="dialogVisible">
       <post-form-vue @create="createPost" />
     </my-dialog-vue>
 
-    <post-list-vue 
-      v-if="!isPostsLoading" 
-      :posts="sortedAndSearchedPost" 
-      @remove="removePost" 
-      />
+    <post-list-vue v-if="!isPostsLoading" :posts="sortedAndSearchedPost" @remove="removePost" />
 
     <div v-else>Идет загрузка...</div>
 
@@ -72,13 +60,14 @@ export default {
       limit: 10,
       totalPage: 0,
       sortOptions: [
-        {value: 'title', name: 'По названию'},
-        {value: 'body', name: 'По содержимому'},
+        { value: 'title', name: 'По названию' },
+        { value: 'body', name: 'По содержимому' },
       ]
     };
   },
   methods: {
     createPost(post) {
+      console.log(post)
       this.posts.push(post);
       this.dialogVisible = false;
     },
@@ -100,7 +89,7 @@ export default {
         this.totalPage = Math.ceil(response.headers['x-total-count'] / this.limit)
         this.posts = response.data;
       } catch (e) {
-        alert ('Ошибка')
+        alert('Ошибка')
       } finally {
         this.isPostsLoading = false;
       }
@@ -117,8 +106,8 @@ export default {
         this.totalPage = Math.ceil(response.headers['x-total-count'] / this.limit)
         this.posts = [...this.posts, ...response.data];
       } catch (e) {
-        alert ('Ошибка')
-      } 
+        alert('Ошибка')
+      }
     },
     // changePage(page) {
     //   this.page = page
@@ -133,7 +122,7 @@ export default {
       threshold: 1.0
     }
     const callback = (entries, observer) => {
-      if(entries[0].isIntersecting && this.page < this.totalPage) {
+      if (entries[0].isIntersecting && this.page < this.totalPage) {
         this.loadMorePost()
       }
     };

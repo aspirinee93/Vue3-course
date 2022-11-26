@@ -5,13 +5,9 @@
       <div><strong>Описание: </strong>{{ post.body }}</div>
     </div>
     <div class="post__btns">
-      <my-button-vue
-        @click="$router.push(`/post/${post.id}`)"
-      >
+      <my-button-vue @click="$router.push(`/post/${post.id}`)">
         Открыть</my-button-vue>
-      <my-button-vue
-        @click="$emit('remove', post)"
-      >
+      <my-button-vue @click="$emit('remove', post)">
         Удалить</my-button-vue>
     </div>
   </div>
@@ -19,6 +15,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      postItem: this.post
+    }
+  },
   props: {
     post: {
       type: Object,
