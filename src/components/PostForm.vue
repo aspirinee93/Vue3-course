@@ -2,7 +2,7 @@
   <div>
     <form @submit.prevent>
       <h4>Создание поста</h4>
-      <my-input-vue v-model="post.title" type="text" placeholder="Название" />
+      <my-input-vue v-focus v-model="post.title" type="text" placeholder="Название" />
       <my-input-vue v-model="post.body" type="text" placeholder="Описание" />
       <my-button-vue @click="createPost">Создать</my-button-vue>
     </form>
