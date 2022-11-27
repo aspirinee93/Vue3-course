@@ -1,41 +1,32 @@
 <template>
   <div>
-    <h1>Страница с поставми</h1>
-
-    <my-input-vue v-focus v-model="searchQuery" placeholder="Поиск..." />
-
+    <h1>Страница с постами</h1>
+    <my-input-vue v-model="searchQuery" placeholder="Поиск...." v-focus />
     <div class="app__btns">
-      <my-button-vue @click="showDialog">Создать пост
-      </my-button-vue>
       <my-select-vue v-model="selectedSort" :options="sortOptions" />
     </div>
-
-    <my-dialog-vue v-model:show="dialogVisible">
-      <post-form-vue @create="createPost" />
-    </my-dialog-vue>
-
-    <post-list-vue v-if="!isPostsLoading" :posts="sortedAndSearchedPost" @remove="removePost" />
-
+    <post-list :posts="sortedAndSearchedPosts" v-if="!isPostsLoading" />
     <div v-else>Идет загрузка...</div>
-
-    <div v-intersection="loadMorePost" class="observer"></div>
-
   </div>
 </template>
 
 <script>
-import PostListVue from "@/components/PostList.vue";
-import PostFormVue from "@/components/PostForm.vue";
-import MyDialogVue from "@/components/UI/MyDialog.vue";
-import MyButtonVue from "@/components/UI/MyButton.vue";
+import PostForm from "@/components/PostForm";
+import PostList from "@/components/PostList";
+import MyButton from "@/components/UI/MyButton";
 import axios from 'axios';
-
+import MySelect from "@/components/UI/MySelect";
+import MyInput from "@/components/UI/MyInput";
+import { ref } from 'vue'
+import { usePosts } from "@/hooks/usePosts";
+import useSortedPosts from "@/hooks/useSortedPosts";
+import useSortedAndSearchedPosts from "@/hooks/useSortedAndSearchedPosts";
 export default {
   components: {
-    PostFormVue,
-    PostListVue,
-    MyDialogVue,
-    MyButtonVue,
+    MyInput,
+    MySelect,
+    MyButton,
+    PostList, PostForm
   },
   data() {
     return {
@@ -44,14 +35,25 @@ export default {
         { value: 'title', name: 'По названию' },
         { value: 'body', name: 'По содержимому' },
       ]
-    };
+    }
   },
   setup(props) {
-
+    const { posts, totalPages, isPostsLoading } = usePosts(10);
+    const { sortedPosts, selectedSort } = useSortedPosts(posts);
+    const { searchQuery, sortedAndSearchedPosts } = useSortedAndSearchedPosts(sortedPosts)
+    return {
+      posts,
+      totalPages,
+      isPostsLoading,
+      sortedPosts,
+      selectedSort,
+      searchQuery,
+      sortedAndSearchedPosts,
+    }
   }
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

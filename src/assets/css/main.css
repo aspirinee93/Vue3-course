@@ -43,7 +43,7 @@ form {
   border-radius: 10px;
 }
 
-.btn:hover {
+.btn:hover{
   background-color: rgb(215, 241, 233);
   box-shadow: 2px 2px 5px gray;
 }
