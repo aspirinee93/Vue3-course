@@ -28,6 +28,11 @@ export default {
           alies: 'posts',
           url: '/posts',
         },
+        {
+          title: 'Store',
+          alies: 'store',
+          url: '/store',
+        },
       ]
     }
   },
