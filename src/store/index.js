@@ -1,28 +1,11 @@
-import { createStore, mapMutations } from "vuex";
+import {createStore} from "vuex";
+import {postModule} from "@/store/postModule";
 
-
-export default createStore ({
-  state: {
-    likes: 0,
-    isAuth: false,
-  },
-  getters: {
-    doubleLikes(state) {
-      return state.likes * 2
-    }
-  },
-  mutations: {
-    incremensLikes(state) {
-        state.likes += 1  
+export default createStore({
+    state: {
+      isAuth: false,
     },
-    decrementLike(state) {
-      state.likes -= 1
-    }   
-  },
-  actions: {
-
-  },
-  modules: {
-
-  }
+    modules: {
+        post: postModule
+    }
 })

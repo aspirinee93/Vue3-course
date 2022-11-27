@@ -33,6 +33,11 @@ export default {
           alies: 'store',
           url: '/store',
         },
+        {
+          title: 'Composition',
+          alies: 'composition',
+          url: '/composition',
+        },
       ]
     }
   },

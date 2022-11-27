@@ -3,7 +3,6 @@
     <div>
       <div><strong>Название: </strong>{{ post.title }}</div>
       <div><strong>Описание: </strong>{{ post.body }}</div><br> 
-      <div>Likes - {{$store.state.likes}}</div>
     </div>
     <div class="post__btns">
       <my-button-vue @click="$router.push(`/post/${post.id}`)">
